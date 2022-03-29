@@ -1,0 +1,29 @@
+.parrafo img {
+  width: 93%;
+  margin: auto;
+}
+.parrafo {
+  width: 90%;
+  margin: auto;
+  font-size: calc(1em + 0.42vw);
+  line-height: 1.4;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-bottom: 2.3vh;
+}
+h1 {
+  margin-left: 4.5%;
+}
+.Inicio {
+  text-decoration: none;
+  color: white;
+}
+.Inicio:hover {
+  color: rgb(209, 209, 79);
+  transition: 0.5s;
+}
+@media (max-width: 996px) {
+  .parrafo {
+    grid-template-columns: unset;
+  }
+}

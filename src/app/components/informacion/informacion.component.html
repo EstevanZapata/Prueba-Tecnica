@@ -1,0 +1,80 @@
+<p>
+  <mat-toolbar color="primary">
+    <span> Pataforma de Conocimiento</span>
+  </mat-toolbar>
+</p>
+<mat-form-field appearance="fill" class="categorias">
+  <mat-label>Filtrar por categorias</mat-label>
+  <mat-select [(value)]="selected">
+    <mat-option value="todas">Todas</mat-option>
+    <mat-option value="Ciencia">Ciencia</mat-option>
+    <mat-option value="Historia">Historia</mat-option>
+    <mat-option value="Animales">Animales</mat-option>
+    <mat-option value="Personas">Personas</mat-option>
+    <mat-option value="Actualidad">Actualidad</mat-option>
+  </mat-select>
+</mat-form-field>
+<div class="tarjetas">
+  <div *ngFor="let item of detalles" class="contenedor">
+    <mat-card
+      class="example-card"
+      *ngIf="selected === item.categoria || selected === 'todas'"
+    >
+      <mat-card-header>
+        <mat-card-title>{{ item.Title }}</mat-card-title>
+        <mat-card-subtitle>{{ item.categoria }}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="{{ item.picture }}" />
+      <mat-card-content>
+        <p>
+          {{ item.about }}
+          <span *ngIf="item.fecha_limite < todayWithPipe" style="color: red">
+            <br /><br />
+            Lo sentimos la fecha limite de acceso a esta información era el
+            {{ item.fecha_limite }} por lo que ya no puedes acceder a ella
+          </span>
+        </p>
+      </mat-card-content>
+      <mat-card-footer class="footer">
+        Etiquetas:
+        {{ item.tags }} <br />
+        Fecha Limite de acceso:
+        {{ item.fecha_limite }}
+      </mat-card-footer>
+      <mat-card-actions>
+        <a routerLink="{{ item.Title }}" (click)="onClick()">
+          <button
+            mat-raised-button
+            color="primary"
+            *ngIf="item.fecha_limite >= todayWithPipe"
+            class="botonver"
+          >
+            <mat-icon>remove_red_eye</mat-icon>
+            Ver Mas
+          </button>
+        </a>
+        <button
+          mat-raised-button
+          color="primary"
+          class="button-head regresar"
+          matTooltip="Regresar a dashboard"
+          (click)="onClick()"
+          *ngIf="estado != 'visto'"
+        >
+          <mat-icon>remove_red_eye</mat-icon>
+          <span style="margin-left: 10px">No Visto</span>
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          class="button-head regresar"
+          matTooltip="Regresar a dashboard"
+          *ngIf="estado == 'visto'"
+        >
+          <mat-icon>tag_faces</mat-icon>
+          <span style="margin-left: 10px">Visto</span>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

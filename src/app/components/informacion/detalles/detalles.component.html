@@ -1,0 +1,33 @@
+<div *ngFor="let item of detalles">
+  <div
+    *ngIf="
+      item.Title === titulo.Title && item.fecha_limite >= todayWithPipe;
+      else error
+    "
+  >
+    <p>
+      <mat-toolbar color="primary">
+        <span
+          ><a routerLink="home" class="Inicio">Pataforma de Conocimiento</a>
+        </span>
+      </mat-toolbar>
+    </p>
+    <h1>{{item.Title}}</h1>
+    <div class="parrafo">
+      <img src="{{ item.picture }}" alt="{{ item.Title }}" />
+      <p>
+        <br />
+        {{ item.more_info }}<br /><br />
+        Informacion de: <a href="{{ item.link }}">{{ item.fuente }}</a>
+      </p>
+    </div>
+  </div>
+  <ng-template #error>
+    <div
+      *ngIf="item.fecha_limite < todayWithPipe && item.Title === titulo.Title"
+    >
+      Lo sentimos esta informacion no la puedes ver porque su acceso solo era
+      hasta el {{ item.fecha_limite }}
+    </div>
+  </ng-template>
+</div>
